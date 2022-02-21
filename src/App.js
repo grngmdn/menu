@@ -4,10 +4,15 @@ import Menu from "./Menu"
 import items from "./Data"
 import { Box, Typography } from "@mui/material"
 
+
+//logic to make the buttons dynamic
+const allCategories = ['all', ...new Set(items.map((item) => item.category))]
+
+
 function App() {
 
   const [menuItems, setMenuItems] = useState(items)
-  const [categories, setCategories] = useState()
+  const [categories, setCategories] = useState(allCategories)
 
 
   // logic to filter the menu items according to the category
@@ -20,11 +25,7 @@ function App() {
     const newItems = items.filter((item) => item.category === category)
     setMenuItems(newItems)
   }
-
-
-
-
-
+  
   return (
     <Box
       sx={{
@@ -48,7 +49,7 @@ function App() {
           Our Menu
         </Typography>
       </header>
-      <Categories filterItems={filterItems} />
+      <Categories categories={categories} filterItems={filterItems} />
       <Menu menuItems={menuItems} />
     </Box>
   );
