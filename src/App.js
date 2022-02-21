@@ -1,13 +1,29 @@
 import React, { useState } from "react"
 import Categories from "./Categories"
 import Menu from "./Menu"
-import data from "./Data"
+import items from "./Data"
 import { Box, Typography } from "@mui/material"
 
 function App() {
 
-  const [menuItems, setMenuItems] = useState(data)
+  const [menuItems, setMenuItems] = useState(items)
   const [categories, setCategories] = useState()
+
+
+  // logic to filter the menu items according to the category
+  const filterItems = (category) => {
+
+    if(category === "all") {
+      setMenuItems(items)
+      return;
+    }
+    const newItems = items.filter((item) => item.category === category)
+    setMenuItems(newItems)
+  }
+
+
+
+
 
   return (
     <Box
@@ -32,7 +48,7 @@ function App() {
           Our Menu
         </Typography>
       </header>
-      <Categories />
+      <Categories filterItems={filterItems} />
       <Menu menuItems={menuItems} />
     </Box>
   );
